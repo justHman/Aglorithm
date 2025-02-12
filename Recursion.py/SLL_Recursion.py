@@ -7,12 +7,10 @@ class Phone:
     def show_Phone(self):
         print(self.name, ", ", self.brand, ", ", self.price)
 
-
 class Node:
     def __init__(self, elem, next_node):
         self.elem = elem  # elem la mot bien co kieu la Phone
         self.next = next_node
-
 
 class LinkedList:
     def __init__(self):
@@ -22,42 +20,45 @@ class LinkedList:
     def addFirst(self, n, b, p):
         self.head = Node(Phone(n, b, p), self.head)
         self.size = self.size + 1
-
-    def rc_f1(self, node):
-        if node is None:
-            return 
-        node.elem.show_Phone()
-        self.rc_f1(node.next)
             
     def f1(self):
-        self.rc_f1(self.head)
+        def rc_f1(node):
+            if node is None:
+                return 
+            node.elem.show_Phone()
+            rc_f1(node.next)
+        return rc_f1(self.head)
 
     def f2(self):
-        def rc_f2(node, arr):
+        def rc_f2(node):
             if node is None:
-                return
-            arr.append(node)
-            rc_f2(node.next, arr)
-
-        a = []
-        rc_f2(self.head, a)
-        print(a)
-        for i in a[::-1]:
-            i.elem.show_Phone()
-    
-    def rc_f3(self, node):
+                return 
+            rc_f2(node.next)
+            node.elem.show_Phone()
+        return rc_f2(self.head)
+             
+    def f3(self):
+        def rc_f3(node):
             if node is None:
                 return 0
-            return node.elem.price + self.rc_f3(node.next)
-            
-            
-    def f3(self):
-        rs = self.rc_f3(self.head)
-        print(rs)
+            return node.elem.price + rc_f3(node.next)
+        rs = rc_f3(self.head)
+        return rs
 
+    # find max price by recursion
+    def find_max_price(self):
+        def rc(node):
+            if node is None:
+                return 0
+            
+        return rc(self.head)
     
-
-
+    def add_first(self, phone):
+        def rc(node):
+            if node.next is None:
+                
+            rc(node.next)
+        rc(self.head)
 if __name__ == '__main__':
     lst = LinkedList()
 
@@ -86,5 +87,9 @@ if __name__ == '__main__':
     if (choice == 2):
         lst.f2()
     if (choice == 3):
-        lst.f3()
+        rs = lst.f3()
+        print(rs)
+    if (choice == 4):
+        rs = lst.find_max_price()
+        print(rs)
     
