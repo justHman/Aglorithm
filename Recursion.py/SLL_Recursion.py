@@ -33,12 +33,23 @@ class LinkedList:
         self.rc_f1(self.head)
 
     def f2(self):
-        pass
+        def rc_f2(node, arr):
+            if node is None:
+                return
+            arr.append(node)
+            rc_f2(node.next, arr)
+
+        a = []
+        rc_f2(self.head, a)
+        print(a)
+        for i in a[::-1]:
+            i.elem.show_Phone()
     
     def rc_f3(self, node):
             if node is None:
-                return 
-            s = s + node.elem.price + self.rc_f3(node.next)
+                return 0
+            return node.elem.price + self.rc_f3(node.next)
+            
             
     def f3(self):
         rs = self.rc_f3(self.head)
