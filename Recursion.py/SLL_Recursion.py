@@ -8,7 +8,7 @@ class Phone:
         print(self.name, ", ", self.brand, ", ", self.price)
 
 class Node:
-    def __init__(self, elem, next_node):
+    def __init__(self, elem, next_node = None):
         self.elem = elem  # elem la mot bien co kieu la Phone
         self.next = next_node
 
@@ -53,12 +53,22 @@ class LinkedList:
             
         return rc(self.head)
     
-    def add_first(self, phone):
+    def add_last(self, new_node):
         def rc(node):
             if node.next is None:
-                
+                node.next = new_node
+                return
             rc(node.next)
         rc(self.head)
+    
+    # find min price by recursion
+    def find_min_price(self):
+        def rc(node):
+            if node is None:
+                return node.elem
+            return min(node.elem, rc(node.next), key=lambda x: x.price if x.brand == "IPhone" else float('inf')) 
+        return rc(self.head)
+    
 if __name__ == '__main__':
     lst = LinkedList()
 
@@ -92,4 +102,12 @@ if __name__ == '__main__':
     if (choice == 4):
         rs = lst.find_max_price()
         print(rs)
+    if (choice == 5):
+        new_node = Node(Phone("Xiaomi s23", "Samsung", 20))
+        lst.add_last(new_node)
+        lst.f1()
+    if (choice == 6):
+        rs = lst.find_min_price()
+        rs.show_Phone()
+    
     
