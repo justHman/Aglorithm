@@ -64,7 +64,7 @@ class LinkedList:
     # find min price by recursion
     def find_min_price(self):
         def rc(node):
-            if node is None:
+            if node.next is None:
                 return node.elem
             return min(node.elem, rc(node.next), key=lambda x: x.price if x.brand == "IPhone" else float('inf')) 
         return rc(self.head)
