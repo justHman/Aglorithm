@@ -9,7 +9,7 @@ class BSTree:
     def __init__(self):
         self.root = None
     
-    def insert(self, new_number):
+    def insert_rc(self, new_number):
         new_node = Node(new_number)
         def rc(node):
             if node is None:
@@ -20,6 +20,31 @@ class BSTree:
                 node.r = rc(node.r)
             return node
         self.root = rc(self.root)
+        
+    def insert(self, k):
+        new_node = Node(k)
+        # Nếu cây rỗng, new_node trở thành gốc
+        if self.root is None:
+            self.root = new_node
+            return
+
+        current = self.root
+        while True:
+            if k < current.k:
+                # Nếu bên trái trống, chèn new_node vào bên trái
+                if current.l is None:
+                    current.l = new_node
+                    break
+                else:
+                    current = current.l
+            else:
+                # Nếu bên phải trống, chèn new_node vào bên phải
+                if current.r is None:
+                    current.r = new_node
+                    break
+                else:
+                    current = current.r
+        
 
     def printTree1(self):
         # preorder
@@ -61,24 +86,52 @@ class BSTree:
                 return 
             if node.k == k:
                 return node
-            elif k < node.k:
-                return rc(node.l)
-            elif k > node.k:
-                return rc(node.r)
-            
-        node = rc(self.root)
-        if node:
-            return node
-        return Node(None)
+            if k < node.k:
+                return  rc(node.l)
+            if k > node.k:
+                return  rc(node.r)
+        return rc(self.root)
 
     def findFather(self, k):
-        pass
-
+        def rc(node):
+            if node is None:
+                return 
+            if node.k == k:
+                return 
+            if node.l is not None and node.l.k == k:
+                return node
+            if node.r is not None and node.r.k == k:
+                return node
+            if k < node.k:
+                return  rc(node.l)
+            if k > node.k:
+                return rc(node.r)
+        return rc(self.root)
+    
     def calHeight(self):
-        pass
+        def rc(node):
+            if node is None:
+                return -1
+            return 1 + max(rc(node.l), rc(node.r))
+        return rc(self.root)
+    
+    def calHeight1(self):
+        def rc(node):
+            if node is None:
+                return -1
+            l = rc(node.l)
+            r = rc(node.r)
+            return 1 + max(l, r)
+        return rc(self.root)
 
     def countLeaf(self):
-        pass
+        def rc(node):
+            if node is None:
+                return 0
+            if node.l is None and node.r is None:
+                return 1
+            return rc(node.l) + rc(node.r)
+        return rc(self.root)
 
     def sum(self):
         s = 0
@@ -87,9 +140,9 @@ class BSTree:
                 return
             nonlocal s
             s += node.k
-            return  
             rc(node.l)
             rc(node.r)
+            
         def rc2(node):
             if node is None:
                 return 0
@@ -100,7 +153,7 @@ class BSTree:
         def rc(node):
             if node is None:
                 return 0
-            return 1 + + rc(node.l) + rc(node.r)
+            return 1 + rc(node.l) + rc(node.r)
         return rc(self.root)
 
     def delete(self, k):
@@ -149,9 +202,8 @@ def processing():
     t.insert(4)
     t.printTree1()
     print()
-    a = t.search(5)
-    print(a.k)
-    t.printTree1()
+    a = t.countLeaf()
+    print(a)
 
 
 if __name__ == '__main__':
