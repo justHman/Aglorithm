@@ -78,7 +78,14 @@ class BSTree:
 
     def printTree4(self):
         # breadth first traversal
-        pass
+        stack = [self.root]
+        while stack:
+            node = stack.pop(0)
+            print(node.k, end=' ')
+            if node.l is not None:
+                stack.append(node.l)
+            if node.r is not None:
+                stack.append(node.r)
 
     def search(self, k):
         def rc(node):
@@ -200,7 +207,7 @@ def processing():
     t.insert(1)
     t.insert(2)
     t.insert(4)
-    t.printTree1()
+    t.printTree4()
     print()
     a = t.countLeaf()
     print(a)
