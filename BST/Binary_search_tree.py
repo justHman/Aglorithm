@@ -164,7 +164,7 @@ class BSTree:
         return rc(self.root)
 
     def delete(self, k):
-        def find_min_right(node):
+        def find_min_right_and_parent(node):
             parent = node
             min_right = node.r
             while min_right.l:
@@ -180,14 +180,10 @@ class BSTree:
             elif k > node.k:
                 node.r = rc(node.r)
             else:
-                if node.l is None and node.r is None:
-                    return None
-                if node.l is None:
-                    return node.r
-                if node.r is None:
-                    return node.l
+                if node.l is None or node.r is None:
+                    return node.l if node.r is None else node.r
                 if node.l is not None and node.r is not None:
-                    min_right, parent = find_min_right(node)
+                    min_right, parent = find_min_right_and_parent(node)
                     node.k = min_right.k
                     if parent.k == node.k:
                         parent.r = parent.r.r
