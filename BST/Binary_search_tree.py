@@ -51,7 +51,7 @@ class BSTree:
         def rc(node):
             if node is None:
                 return
-            print(node.k, end=' ')
+            print(node.k, end=' ,')
             rc(node.l)
             rc(node.r)
         rc(self.root)
@@ -164,7 +164,37 @@ class BSTree:
         return rc(self.root)
 
     def delete(self, k):
-        pass
+        def find_min_right(node):
+            parent = node
+            min_right = node.r
+            while min_right.l:
+                parent = min_right
+                min_right = min_right.l
+            return min_right, parent
+
+        def rc(node):
+            if node is None:
+                return 
+            if k < node.k:
+                node.l = rc(node.l)
+            elif k > node.k:
+                node.r = rc(node.r)
+            else:
+                if node.l is None and node.r is None:
+                    return None
+                if node.l is None:
+                    return node.r
+                if node.r is None:
+                    return node.l
+                if node.l is not None and node.r is not None:
+                    min_right, parent = find_min_right(node)
+                    node.k = min_right.k
+                    if parent.k == node.k:
+                        parent.r = parent.r.r
+                    else:
+                        parent.l = parent.l.r
+            return node 
+        self.root = rc(self.root)
 
     # ======================================================
     # Some extensions for AVL Trees
@@ -201,17 +231,25 @@ class BSTree:
         print(s)
             
 
-def processing():
-    t = BSTree()
-    t.insert(3)
-    t.insert(1)
-    t.insert(2)
-    t.insert(4)
-    t.printTree4()
+def processing(t):
+    t.printTree1()
     print()
-    a = t.countLeaf()
-    print(a)
+    t.delete(54)
+    t.delete(50) 
+    t.printTree1()
+
+def insert():
+    t = BSTree()
+    t.insert(50)
+    t.insert(54)
+    t.insert(30)
+    t.insert(70)
+    t.insert(60)
+    t.insert(80)
+    t.insert(55)
+    t.insert(57)
+    processing(t)
 
 
 if __name__ == '__main__':
-    processing()
+    insert()
