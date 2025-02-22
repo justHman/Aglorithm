@@ -94,9 +94,9 @@ class BSTree:
             if node.k == k:
                 return node
             if k < node.k:
-                return  rc(node.l)
+                return rc(node.l)
             if k > node.k:
-                return  rc(node.r)
+                return rc(node.r)
         return rc(self.root)
 
     def findFather(self, k):
@@ -115,12 +115,12 @@ class BSTree:
                 return rc(node.r)
         return rc(self.root)
     
-    def calHeight(self):
+    def calHeight(self, node):
         def rc(node):
             if node is None:
                 return -1
             return 1 + max(rc(node.l), rc(node.r))
-        return rc(self.root)
+        return rc(node)
     
     def calHeight1(self):
         def rc(node):
@@ -194,8 +194,14 @@ class BSTree:
 
     # ======================================================
     # Some extensions for AVL Trees
-    def calBalanceFactor(self, n):
-        pass
+    def calBalanceFactor(self, node):
+        def rc(node):
+            if node is None:
+                return 0
+            lHeight = self.calHeight(node.l)
+            rHeight = self.calHeight(node.r)
+            return lHeight - rHeight
+        return rc(node)
 
     def sleftRotate(self, n):
         # single left rotation
@@ -215,25 +221,19 @@ class BSTree:
 
     def doBalancing(self, n):
         pass
-    
-    def vd(self):
-        s = 0
-        print(id(s))
-        def vd1():
-            nonlocal s
-            s += 10
-            print(id(s))
-        vd1()
-        print(s)
+
+    def AVLDeleteNode(self, n):
+        pass
+        
+    def AVLInsertNode(self, n):
+        pass
             
 
 def processing(t):
     t.printTree1()
     print()
-    t.delete(54)
-    t.delete(50) 
-    t.printTree1()
-
+    node = t.search(50)
+    print(t.calBalanceFactor(node))
 def insert():
     t = BSTree()
     t.insert(50)
