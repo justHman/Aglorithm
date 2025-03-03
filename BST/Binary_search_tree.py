@@ -203,12 +203,21 @@ class BSTree:
             return lHeight - rHeight
         return rc(node)
 
-    def sleftRotate(self, n):
+    def sleftRotate(self, node):
         # single left rotation
-        pass
+        root = node
+        left = node.l
+        right = node.r
+
+        right.l = root
+        root.l = left
+        root.r = None
+        self.root = right
+
 
     def srightRotate(self, n):
         # single right rotation
+        
         pass
 
     def dleftRotate(self, n):
@@ -232,8 +241,10 @@ class BSTree:
 def processing(t):
     t.printTree1()
     print()
-    node = t.search(50)
-    print(t.calBalanceFactor(node))
+    node = t.search(54)
+    t.sleftRotate(node)
+    t.printTree1()
+
 def insert():
     t = BSTree()
     t.insert(50)
@@ -241,9 +252,9 @@ def insert():
     t.insert(30)
     t.insert(70)
     t.insert(60)
-    t.insert(80)
     t.insert(55)
     t.insert(57)
+    t.insert(80)
     processing(t)
 
 
