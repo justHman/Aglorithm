@@ -26,5 +26,6 @@ graph = {
 }
 
 start = 'A'
-d, pp = dijkstra(graph, start)
+d, p = dijkstra(graph, start)
 print(sum(d.values()))
+print(p)
