@@ -51,7 +51,7 @@ class BSTree:
         def rc(node):
             if node is None:
                 return
-            print(node.k, end=' ,')
+            print(node.k, end=', ')
             rc(node.l)
             rc(node.r)
         rc(self.root)
@@ -110,7 +110,7 @@ class BSTree:
             if node.r is not None and node.r.k == k:
                 return node
             if k < node.k:
-                return  rc(node.l)
+                return rc(node.l)
             if k > node.k:
                 return rc(node.r)
         return rc(self.root)
@@ -198,64 +198,141 @@ class BSTree:
         def rc(node):
             if node is None:
                 return 0
-            lHeight = self.calHeight(node.l)
-            rHeight = self.calHeight(node.r)
+            lHeight = self.calHeight(node.l) 
+            rHeight = self.calHeight(node.r) 
             return lHeight - rHeight
         return rc(node)
 
     def sleftRotate(self, node):
         # single left rotation
+        if node is None or node.r is None:
+            return node 
+        
         root = node
-        left = node.l
         right = node.r
 
+        root.r = right.l
         right.l = root
-        root.l = left
-        root.r = None
-        self.root = right
-
+        return right
 
     def srightRotate(self, n):
         # single right rotation
+        if n is None or n.l is None:
+            return n
         
-        pass
+        root = n
+        left = n.l
+
+        root.l = left.r
+        left.r = root
+        return left
 
     def dleftRotate(self, n):
         # double left rotation
-        pass
+        if n is None or n.l is None:
+            return n 
+        
+        n.l = self.sleftRotate(n.l)
+        return self.rightRotate(n)
 
     def drightRotate(self, n):
         # double right rotation
-        pass
+        if n is None or n.r is None:
+            return n 
+        
+        n.r = self.srightRotate(n.r)
+        return self.sleftRotate(n)
 
     def doBalancing(self, n):
-        pass
-
-    def AVLDeleteNode(self, n):
-        pass
+        balance_factor = self.calBalanceFactor(n)
+        if balance_factor in [-1, 0 , 1]:
+            return n
+        if balance_factor > 1: # Lệch trái
+            if self.calBalanceFactor(n.l) < 0:
+                return self.drightRotate(n)
+            return self.srightRotate(n)
+        if balance_factor < -1:
+            if self.calBalanceFactor(n.r) > 0:
+                return self.dleftRotate(n)
+            return self.sleftRotate(n)
         
-    def AVLInsertNode(self, n):
-        pass
+    # def AVLDeleteNode(self, n):
+    #     def find_min_right(node):
+    #         cur = node.r
+    #         while cur:
+    #             cur = cur.l
+    #         return cur
             
+    #     def rc(node, n=n):
+    #         if node is None:
+    #             return
+    #         if n < node.k:
+    #             node.l = rc(node.l)
+    #         elif n > node.k:  
+    #             node.r = rc(node.r)
+    #         else:
+    #             if node.l is None or node.r is None:
+    #                 return node.l if node.r is None else node.r
+    #             min_right = find_min_right(node)
+    #             node.k = min_right.k
+    #         return self.doBalancing(node)
+    #     self.root = rc(self.root)
 
-def processing(t):
-    t.printTree1()
-    print()
-    node = t.search(54)
-    t.sleftRotate(node)
-    t.printTree1()
+    def AVLDeleteNode(self, key):
+        def find_min(node):
+            while node.l:
+                node = node.l
+            return node
+
+        def rc(node, key):
+            if node is None:
+                return None
+            if key < node.k:
+                node.l = rc(node.l, key)
+            elif key > node.k:
+                node.r = rc(node.r, key)
+            else:
+                if node.l is None:
+                    return node.r
+                elif node.r is None:
+                    return node.l
+                min_right = find_min(node.r)
+                node.k = min_right.k
+                node.r = rc(node.r, min_right.k)
+            return self.doBalancing(node)
+        self.root = rc(self.root, key)
+
+    def AVLInsertNode(self, k):
+        new_node = Node(k)
+        def rc(node):
+            if node is None:
+                return new_node
+            if k < node.k:
+                node.l = rc(node.l)
+            elif k > node.k:
+                node.r = rc(node.r)
+            return self.doBalancing(node)
+        self.root = rc(self.root)
+           
 
 def insert():
-    t = BSTree()
-    t.insert(50)
-    t.insert(54)
-    t.insert(30)
-    t.insert(70)
-    t.insert(60)
-    t.insert(55)
-    t.insert(57)
-    t.insert(80)
-    processing(t)
+    tree = BSTree()
+    
+    nodes = [30, 20, 10, 5, 15, 25, 40, 35, 50]
+    for n in nodes:
+        tree.AVLInsertNode(n)
+
+    print("Cây trước khi xóa:")
+    tree.printTree1()
+    
+    # Xoá một node có hai con (ví dụ: 20)
+    print("\nXóa node 25:")
+    tree.AVLDeleteNode(30) 
+    
+    print("Cây sau khi xóa:")
+    tree.printTree1()
+    
+    
 
 
 if __name__ == '__main__':
