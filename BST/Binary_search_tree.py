@@ -171,7 +171,7 @@ class BSTree:
                 parent = min_right
                 min_right = min_right.l
             return min_right, parent
-
+            
         def rc(node):
             if node is None:
                 return 
