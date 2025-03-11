@@ -2,8 +2,6 @@ def greedy(items, capacity):
     total = 0
     items.sort(key=lambda x: x[1], reverse=True)
     print(items)
-    items.sort(key=lambda x: x[1] / x[0], reverse=True)
-    print(items)
     
     
     for weight, value in items:
@@ -11,7 +9,8 @@ def greedy(items, capacity):
             total += value
             capacity -= weight
         else:
-            total += value * (weight / capacity)
+            total += value * (capacity / weight)
+            break
     return total
     
 
