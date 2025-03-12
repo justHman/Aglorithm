@@ -10,7 +10,7 @@ def greedy(items, capacity):
             capacity -= weight
         else:
             total += value * (capacity / weight)
-            break
+            break 
     return total
     
 
