@@ -47,17 +47,22 @@ class sort_aglorithms:
         
         n = len(self.iter)
         for i in range(n):
-            min = float('inf')
-            for j in range(i, n - 1):
-                if iter[i] < iter[i + 1]:
-                    min = iter[i]
-            iter[i], min = min, iter[i]
+            finish = True 
+            min = i
+            for j in range(i + 1 , n):
+                print(iter)
+                if iter[j] < iter[min]:
+                    min = j
+                    finish = False 
+            iter[i], iter[min] = iter[min], iter[i]
+            if finish:
+                return iter
         return iter
             
             
 
 a = [5, 3, 8, 4, 2]
-b = [1, 11, 3, 4, 5, 6, 7, 8, 9]
-agl = sort_aglorithms(a)
+b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+agl = sort_aglorithms(b)
 a_sorted = agl.selection()         
 print(a_sorted)
