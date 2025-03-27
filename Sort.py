@@ -55,14 +55,23 @@ class sort_aglorithms:
                     min = j
                     finish = False 
             iter[i], iter[min] = iter[min], iter[i]
+            
             if finish:
                 return iter
         return iter
             
-            
+    def insertion(self):
+        iter = self.iter
+        
+        if is_iterable(iter) == False:
+            print("Khong phai la iter")
+            return iter
+        
+        n = len(iter)
+
 
 a = [5, 3, 8, 4, 2]
 b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-agl = sort_aglorithms(b)
-a_sorted = agl.selection()         
-print(a_sorted)
+sort = sort_aglorithms(b)
+arr_sorted = sort.selection()         
+print(arr_sorted)
