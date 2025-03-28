@@ -55,7 +55,7 @@ class sort_aglorithms:
                     min = j
                     finish = False 
             iter[i], iter[min] = iter[min], iter[i]
-            
+
             if finish:
                 return iter
         return iter
@@ -68,10 +68,15 @@ class sort_aglorithms:
             return iter
         
         n = len(iter)
-
+        for i in range(n - 1):
+            print(iter)
+            for j in range(i + 1, 0, -1):
+                if iter[j] < iter[j - 1]:
+                    iter[j], iter[j - 1] = iter[j - 1], iter[j]
+        return iter
 
 a = [5, 3, 8, 4, 2]
 b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-sort = sort_aglorithms(b)
-arr_sorted = sort.selection()         
+sort = sort_aglorithms(a)
+arr_sorted = sort.insertion()         
 print(arr_sorted)
