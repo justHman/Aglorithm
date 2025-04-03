@@ -76,9 +76,11 @@ class sort_aglorithms:
         return iter
 
     def heap():
+        
+        pass
     
 a = [5, 3, 8, 4, 2]
 b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-sort = sort_aglorithms(a)
+sort = sort_aglorithms(b)
 arr_sorted = sort.insertion()         
 print(arr_sorted)
