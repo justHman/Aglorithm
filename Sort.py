@@ -68,11 +68,12 @@ class sort_aglorithms:
             return iter
         
         n = len(iter)
-        for i in range(n - 1):
-            print(iter)
-            for j in range(i + 1, 0, -1):
+        for i in range(1, n):
+            for j in range(i, 0, -1):
+                print(iter)
                 if iter[j] < iter[j - 1]:
                     iter[j], iter[j - 1] = iter[j - 1], iter[j]
+               
         return iter
 
     def heap():
