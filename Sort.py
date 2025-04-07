@@ -73,16 +73,45 @@ class sort_aglorithms:
                 print(iter)
                 if iter[j] < iter[j - 1]:
                     iter[j], iter[j - 1] = iter[j - 1], iter[j]
-               
+                else: 
+                    break
         return iter
 
-    def heap():
+    def quick(self, arr=None):
+        if arr is None:
+            arr = self.iter
+
+        if not is_iterable(arr):
+            print("Khong phai la iter")
+            return arr
+
+        if len(arr) <= 1:
+            return arr
+
+        def partition(arr):
+            pivot = arr[-1]
+            i = -1
+            for j in range(len(arr) - 1):
+                if arr[j] < pivot:
+                    i += 1
+                    arr[i], arr[j] = arr[j], arr[i]
+            arr[i + 1], arr[-1] = arr[-1], arr[i + 1]
+            return i + 1
+
+        pi = partition(arr)
+        left = self.quick(arr[:pi])
+        right = self.quick(arr[pi + 1:])
+
+        return left + [arr[pi]] + right
+    
+    def heap(selfself):
            
            
         pass
-    
+
 a = [5, 3, 8, 4, 2]
 b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+c = 11
 sort = sort_aglorithms(b)
-arr_sorted = sort.insertion()         
+arr_sorted = sort.quick()
 print(arr_sorted)
