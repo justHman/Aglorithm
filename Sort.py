@@ -1,4 +1,6 @@
 from collections.abc import Iterable
+import time
+import random
 
 def is_iterable(obj):
     return isinstance(obj, Iterable)
@@ -29,7 +31,8 @@ class sort_aglorithms:
         n = len(iter)
         for truoc in range(n):
             finish = True
-            for lien_sau in range(n - 1 - truoc):  
+            for lien_sau in range(n - 1 - truoc): 
+                print(iter) 
                 if iter[lien_sau] > iter[lien_sau + 1]:
                     iter[lien_sau + 1], iter[lien_sau] = iter[lien_sau], iter[lien_sau + 1]          
                     finish = False
@@ -102,18 +105,46 @@ class sort_aglorithms:
                 return arr
             p = partion(arr)
             left = rc(arr[:p])
-            right = rc(arr[p + 1:])
+            right = rc(arr[p:])
             return left + [arr[p]] + right
         return rc(self.iter)
     
-    def heap(selfself):
-           
-           
+    def merge(self):
+        def sort(left, right):
+            arr = []
+            i = j = 0
+            while i < len(left) and j < len(right):
+                if left[i] < right[j]:
+                    arr.append(left[i])
+                    i += 1
+                else:
+                    arr.append(right[j])
+                    j += 1
+            arr.extend(left[i:])
+            arr.extend(right[j:])
+            return arr
+        
+        def rc(arr):
+            if not arr:
+                return []
+            if len(arr) <= 1:
+                return arr
+            mid = len(arr) // 2
+            left = rc(arr[:mid])
+            right = rc(arr[mid:])
+            return sort(left, right)
+        return rc(self.iter)
+
+    def heap(self):
         pass
 
-a = [5, 3, 8, 4, 2]
+a = [5, 5, 8, 4, 2]
 b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-c = 11
+c = random.sample(range(1000001), 1000000)
+d = 11
 sort = sort_aglorithms(c)
-arr_sorted = sort.quick()
+start = time.time()
+arr_sorted = sort.selection()
+end = time.time()
 print(arr_sorted)
+print('Speed:', end - start)
