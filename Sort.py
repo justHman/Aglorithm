@@ -134,17 +134,37 @@ class sort_aglorithms:
             right = rc(arr[mid:])
             return sort(left, right)
         return rc(self.iter)
+    
+    def counting(self):
+        iter = self.iter
+        if is_iterable(iter) == False:
+            return
+            
+        counting = [iter.count(i) for i in range(max(iter) + 1)]
+        
+        for i in range(1, len(counting)):
+            counting[i] += counting[i - 1]
+
+        out = [0] * len(iter)
+        for val in iter:
+            counting[val] -= 1
+            out[counting[val]] = val
+            print(out)
+        return out
+
+
+
 
     def heap(self):
         pass
 
 a = [5, 5, 8, 4, 2]
 b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-c = random.sample(range(1000001), 1000000)
+c = random.sample(range(1001), 1000)
 d = 11
 sort = sort_aglorithms(c)
 start = time.time()
-arr_sorted = sort.selection()
+arr_sorted = sort.counting()
 end = time.time()
 print(arr_sorted)
 print('Speed:', end - start)
