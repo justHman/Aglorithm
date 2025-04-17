@@ -152,19 +152,34 @@ class sort_aglorithms:
             print(out)
         return out
 
-
-
+    def radix(self):
+        iter = self.iter
+        if is_iterable(iter) == False:
+            return
+        
+        M = max(iter)
+        leng = len(f'{M}')
+        for i in range(leng):
+            a = 10 * (10 ** i + 1)
+            print(iter[i])
+            print(iter[i] % 10)
+            print('x', iter[i] % 10 // 10)
+            break
+            iter.sort(key=lambda x: x // a % 10)
+            print(iter)
+            print('================')
+        print(iter)
 
     def heap(self):
         pass
 
 a = [5, 5, 8, 4, 2]
 b = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-c = random.sample(range(1001), 1000)
+c = random.sample(range(101), 100)
 d = 11
 sort = sort_aglorithms(c)
 start = time.time()
-arr_sorted = sort.counting()
+arr_sorted = sort.radix()
 end = time.time()
 print(arr_sorted)
 print('Speed:', end - start)
