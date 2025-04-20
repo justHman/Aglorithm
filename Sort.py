@@ -153,24 +153,37 @@ class sort_aglorithms:
         return out
 
     def radix(self):
+        def counting_sort(iter, dcm):
+            a = []
+            for val in iter:
+                a.append(val // dcm % 10)
+
+            counting = [a.count(i) for i in range(10)]
+
+            for i in range(1, len(counting)):
+                counting[i] += counting[i - 1]
+
+            
+
+
+
+            
+                
         iter = self.iter
         if is_iterable(iter) == False:
             return
         
         M = max(iter)
         leng = len(f'{M}')
-        for i in range(leng):
-            a = 10 * (10 ** i + 1)
-            print(iter[i])
-            print(iter[i] % 10)
-            print('x', iter[i] % 10 // 10)
-            break
-            iter.sort(key=lambda x: x // a % 10)
-            print(iter)
-            print('================')
+        dcm = 1
+        for _ in range(leng):
+            iter = counting_sort(iter, dcm)
+            dcm *= 10
         print(iter)
 
     def heap(self):
+
+        
         pass
 
 a = [5, 5, 8, 4, 2]
