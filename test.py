@@ -1,18 +1,12 @@
+def shortestToChar(s: str, c: str):
+        cIndex = [i for i, char in enumerate(s) if char == c]
+        rs = []
+        for i in range(len(s)):
+            shortest = min([abs(i - cI) for cI in cIndex])
+            rs.append(shortest)
+        print(rs)
+        return rs
 
-def my_permutation(nums):
-    def back_track(nums, so = []):
-        if len(so) == 3:
-            print(''.join(so))
-            return 
-        
-        for num in nums:
-            so.append(str(num))
-            a = [v for v in nums if v != num]
-            back_track(a, so)
-            so.pop()
-    back_track(nums)
-            
-
-nums = [1, 2, 3]
-my_permutation(nums)
-
+s = "loveleetcode"
+c = "e"
+shortestToChar(s, c)
