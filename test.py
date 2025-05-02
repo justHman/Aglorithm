@@ -1,11 +1,11 @@
 def totalNumbers(digits) -> int:
-        evens = 0
+        evens = []
         def permutate(digits, nums = []):
             nonlocal evens
             if len(nums) == 3:
                 number = int(''.join(nums))
-                if number % 2 == 0 and len(str(number)) == 3:
-                    evens += 1
+                if number % 2 == 0 and len(str(number)) == 3 and number not in evens:
+                    evens.append(number)
                 return 
             
             for digit in digits:
@@ -20,6 +20,8 @@ def totalNumbers(digits) -> int:
                 permutate(flt_digits, nums)
                 nums.pop()
         permutate(digits)
-        return evens
+        return len(evens)
 
-totalNumbers([0, 2, 2])
+rs = totalNumbers([1, 3, 5])
+print()
+print(rs)
