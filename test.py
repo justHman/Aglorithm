@@ -23,5 +23,5 @@ def totalNumbers(digits) -> int:
         return len(evens)
 
 rs = totalNumbers([1, 3, 5])
-print()
+a = 2
 print(rs)
