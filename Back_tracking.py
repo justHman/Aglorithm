@@ -9,5 +9,4 @@ def to_hop(arr, C = []):
         C.pop()
 
 arr = [i for i in input().split(" ")]
-print()
 to_hop(arr)
