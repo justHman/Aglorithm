@@ -1,22 +1,15 @@
-def ms(a):
-    n = len(a)
-    m = n//2
-    if n <= 1: return a
-    l = ms(a[:m])
-    r = ms(a[m:])
-    i,j,rs = 0, 0 ,[]
-    while i<len(l) and j <len(r):
-        if l[i] < r[j]:
-            rs.append(l[i])
-            i += 1
+def s(a, t):
+    l,r=0, len(a) - 1
+    while l <= r:
+        m = (r+l)//2
+        if t == a[m]:
+            return m
+        elif t<a[m]:
+            r = m - 1
         else:
-            rs.append(r[j])
-            j += 1
+            l = m +1
+    return -1
 
-    rs.extend(l[i:])
-    rs.extend(r[j:])
-    return rs
-
-a = [9,6,3,2]
-rs = ms(a)
+a = [1,3,5,7,9]
+rs = s(a, 1)
 print(rs)
