@@ -1,21 +1,22 @@
-def merge_sort(arr):
-    print(arr)
-    n = len(arr)
-    if n <= 1:
-        return arr
-    mid = n // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    merge = []
-    i = j = 0
-    while i < len(left) and j < len(right):
-        merge.append(left[i]) if left[i] < right[j] else merge.append(right[j])
-        if left[i] < right[j]: i += 1
-        else: j += 1
-    merge.extend(left[i:])
-    merge.extend(right[j:])
-    return merge 
+def ms(a):
+    n = len(a)
+    m = n//2
+    if n <= 1: return a
+    l = ms(a[:m])
+    r = ms(a[m:])
+    i,j,rs = 0, 0 ,[]
+    while i<len(l) and j <len(r):
+        if l[i] < r[j]:
+            rs.append(l[i])
+            i += 1
+        else:
+            rs.append(r[j])
+            j += 1
 
-arr = [9, 8, 7, 6, 5, 4]
-rs = merge_sort(arr)
+    rs.extend(l[i:])
+    rs.extend(r[j:])
+    return rs
+
+a = [9,6,3,2]
+rs = ms(a)
 print(rs)
